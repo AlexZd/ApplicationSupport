@@ -22,7 +22,7 @@ pod "ApplicationSupport"
 
 ## Author
 
-alex, alex@farabi.ae
+Alex Z, alexzd89@mail.ru
 
 ## License
 
