@@ -1,0 +1,6 @@
+use_frameworks!
+target 'ApplicationSupport_Tests' do
+  pod 'ApplicationSupport', :path => '../'
+  
+  
+end
