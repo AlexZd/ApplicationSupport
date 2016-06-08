@@ -24,6 +24,7 @@ public struct Transformer {
     }
     
     public struct Defined {
+        
         public static let URLTransformer = Transformer(forward: { (value) -> Any? in
             if let url = value as? String {
                 return URL(string: url)
@@ -35,5 +36,6 @@ public struct Transformer {
                 }
                 return nil
         })
+        
     }
 }
