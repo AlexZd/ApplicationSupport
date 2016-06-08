@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name			= "ApplicationSupport"
   s.version			= "1.0.0"
   s.summary			= "iOS Application Support classes"
-  s.homepage		= "https://github.com/AlexZd"
+  s.homepage		= "https://github.com/AlexZd/ApplicationSupport"
   s.license			= 'MIT'
   s.author			= { "Alex Z" => "alexzd89@mail.ru" }
   s.source 			= { :git => "https://github.com/AlexZd/ApplicationSupport.git", :tag => s.version }
