@@ -8,23 +8,23 @@
 
 import Foundation
 
-class URL: NSURL, StringLiteralConvertible {
-    typealias UnicodeScalarLiteralType = StringLiteralType
-    typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
+public class URL: NSURL, StringLiteralConvertible {
+    public typealias UnicodeScalarLiteralType = StringLiteralType
+    public typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
     
-    required convenience init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
+    public required convenience init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
         self.init(stringLiteral: value)
     }
     
-    required convenience init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
+    public required convenience init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
         self.init(stringLiteral: value)
     }
     
-    required convenience init(stringLiteral value: StringLiteralType) {
+    public required convenience init(stringLiteral value: StringLiteralType) {
         self.init(string: value, relativeToURL: nil)!
     }
     
-    convenience init(string: String) {
+    public convenience init(string: String) {
         self.init(string: string, relativeToURL: nil)!
     }
 }
