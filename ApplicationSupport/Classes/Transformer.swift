@@ -6,20 +6,20 @@
 //
 //
 
-public typealias ForwardBlock = ((AnyType) -> Any?)
-public typealias BacwardBlock = ((Any) -> AnyType?)
+public typealias ForwardBlock = ((value:AnyType) -> Any?)
+public typealias BackwardBlock = ((value:Any) -> AnyType?)
 
 public struct Transformer {
     
     public var forward: ForwardBlock?
-    public var backward: BacwardBlock?
+    public var backward: BackwardBlock?
     
-    public init(forward: ForwardBlock?, backward: BacwardBlock? = nil) {
+    public init(forward: ForwardBlock?, backward: BackwardBlock? = nil) {
         self.forward = forward
         self.backward = backward
     }
     
-    public init(backward: BacwardBlock?) {
+    public init(backward: BackwardBlock?) {
         self.backward = backward
     }
     
