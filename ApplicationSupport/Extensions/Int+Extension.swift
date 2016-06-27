@@ -13,3 +13,19 @@ extension Int: AnyType, DatabaseRepresentable {
     //MARK: - DatabaseRepresentable
     public var dbValue: AnyType { return self }
 }
+
+extension Int {
+    //MARK: - Data
+    var Kb: Int { return self * 1024 }
+    var Mb: Int { return self.Kb * 1024 }
+    var Gb: Int { return self.Mb * 1024 }
+
+    //MARK: - Time
+    var minutes: Int { return self * 60 }
+    var hours: Int { return self.minutes * 60 }
+    var days: Int { return self.hours * 24 }
+    
+    //MARK: - Distance
+    var km: Int { return self * 1000 }
+    var ml: Int { return Int(Double(self) * 1609.34) }
+}
