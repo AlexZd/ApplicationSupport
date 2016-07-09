@@ -16,16 +16,16 @@ extension Int: AnyType, DatabaseRepresentable {
 
 extension Int {
     //MARK: - Data
-    var Kb: Int { return self * 1024 }
-    var Mb: Int { return self.Kb * 1024 }
-    var Gb: Int { return self.Mb * 1024 }
+    public var Kb: Int { return self * 1024 }
+    public var Mb: Int { return self.Kb * 1024 }
+    public var Gb: Int { return self.Mb * 1024 }
 
     //MARK: - Time
-    var minutes: Int { return self * 60 }
-    var hours: Int { return self.minutes * 60 }
-    var days: Int { return self.hours * 24 }
+    public var minutes: Int { return self * 60 }
+    public var hours: Int { return self.minutes * 60 }
+    public var days: Int { return self.hours * 24 }
     
     //MARK: - Distance
-    var km: Int { return self * 1000 }
-    var ml: Int { return Int(Double(self) * 1609.34) }
+    public var km: Int { return self * 1000 }
+    public var ml: Int { return Int(Double(self) * 1609.34) }
 }

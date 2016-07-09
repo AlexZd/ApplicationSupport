@@ -16,16 +16,16 @@ extension Double: AnyType, DatabaseRepresentable {
 
 extension Double {
     //MARK: - Data
-    var Kb: Double { return self * 1024 }
-    var Mb: Double { return self.Kb * 1024 }
-    var Gb: Double { return self.Mb * 1024 }
+    public var Kb: Double { return self * 1024 }
+    public var Mb: Double { return self.Kb * 1024 }
+    public var Gb: Double { return self.Mb * 1024 }
     
     //MARK: - Time
-    var minutes: Double { return self * 60 }
-    var hours: Double { return self.minutes * 60 }
-    var days: Double { return self.hours * 24 }
+    public var minutes: Double { return self * 60 }
+    public var hours: Double { return self.minutes * 60 }
+    public var days: Double { return self.hours * 24 }
     
     //MARK: - Distance
-    var km: Double { return self * 1000 }
-    var ml: Double { return self * 1609.34 }
+    public var km: Double { return self * 1000 }
+    public var ml: Double { return self * 1609.34 }
 }

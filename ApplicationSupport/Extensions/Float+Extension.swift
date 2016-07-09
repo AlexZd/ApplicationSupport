@@ -16,16 +16,16 @@ extension Float: AnyType, DatabaseRepresentable {
 
 extension Float {
     //MARK: - Data
-    var Kb: Float { return self * 1024 }
-    var Mb: Float { return self.Kb * 1024 }
-    var Gb: Float { return self.Mb * 1024 }
+    public var Kb: Float { return self * 1024 }
+    public var Mb: Float { return self.Kb * 1024 }
+    public var Gb: Float { return self.Mb * 1024 }
     
     //MARK: - Time
-    var minutes: Float { return self * 60 }
-    var hours: Float { return self.minutes * 60 }
-    var days: Float { return self.hours * 24 }
+    public var minutes: Float { return self * 60 }
+    public var hours: Float { return self.minutes * 60 }
+    public var days: Float { return self.hours * 24 }
     
     //MARK: - Distance
-    var km: Float { return self * 1000 }
-    var ml: Float { return self * 1609.34 }
+    public var km: Float { return self * 1000 }
+    public var ml: Float { return self * 1609.34 }
 }
