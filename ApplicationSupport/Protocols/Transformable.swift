@@ -12,7 +12,7 @@ public protocol Transformable {
 
 extension Transformable {
     
-    static func transformers() -> Dictionary<String,Transformer> {
+    static public func transformers() -> Dictionary<String,Transformer> {
         return [:]
     }
     

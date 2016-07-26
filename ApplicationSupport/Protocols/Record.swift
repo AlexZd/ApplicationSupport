@@ -17,15 +17,15 @@ public protocol Record: MetaRecord, Initiable {
 }
 
 public extension Record {
-    func setAttributes(attributes: JSONObject) {}
-    func getAttributes() -> JSONObject { return JSONObject() }
+    public func setAttributes(attributes: JSONObject) {}
+    public func getAttributes() -> JSONObject { return JSONObject() }
     
-    func setAttributes(action: String, attributes: JSONObject) {}
-    func getAttributes(action: String) -> JSONObject { return JSONObject() }
+    public func setAttributes(action: String, attributes: JSONObject) {}
+    public func getAttributes(action: String) -> JSONObject { return JSONObject() }
 }
 
 public extension Record {
-    init(attributes: JSONObject, action: String) {
+    public init(attributes: JSONObject, action: String) {
         self.init()
         self.setAttributes(action, attributes: attributes)
     }
