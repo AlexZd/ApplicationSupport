@@ -8,3 +8,6 @@
 
 public typealias Date = NSDate
 public typealias Time = NSDate
+
+public typealias JSONObject = [String:AnyObject]
+public typealias JSONArray = [JSONObject]
