@@ -9,23 +9,23 @@
 import Foundation
 
 public protocol Record: MetaRecord, Initiable {
-    func setAttributes(attributes: JSONObject)
-    func getAttributes() -> JSONObject
+    func setAttributes(attributes: RecordObject)
+    func getAttributes() -> RecordObject
     
-    func setAttributes(action: String, attributes: JSONObject)
-    func getAttributes(action: String) -> JSONObject
+    func setAttributes(action: String, attributes: RecordObject)
+    func getAttributes(action: String) -> RecordObject
 }
 
 public extension Record {
-    public func setAttributes(attributes: JSONObject) {}
-    public func getAttributes() -> JSONObject { return JSONObject() }
+    public func setAttributes(attributes: RecordObject) {}
+    public func getAttributes() -> RecordObject { return RecordObject() }
     
-    public func setAttributes(action: String, attributes: JSONObject) {}
-    public func getAttributes(action: String) -> JSONObject { return JSONObject() }
+    public func setAttributes(action: String, attributes: RecordObject) {}
+    public func getAttributes(action: String) -> RecordObject { return RecordObject() }
 }
 
 public extension Record {
-    public init(attributes: JSONObject, action: String) {
+    public init(attributes: RecordObject, action: String) {
         self.init()
         self.setAttributes(action, attributes: attributes)
     }
