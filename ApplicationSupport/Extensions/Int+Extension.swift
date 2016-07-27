@@ -6,13 +6,13 @@
 //
 //
 
-extension Int: AnyType, DatabaseRepresentable {
-    //MARK: - AnyType
-    public var rawType: String { return "Int" }
+// extension Int: AnyType, DatabaseRepresentable {
+//     //MARK: - AnyType
+//     public var rawType: String { return "Int" }
     
-    //MARK: - DatabaseRepresentable
-    public var dbValue: AnyType { return self }
-}
+//     //MARK: - DatabaseRepresentable
+//     public var dbValue: AnyType { return self }
+// }
 
 extension Int {
     //MARK: - Data

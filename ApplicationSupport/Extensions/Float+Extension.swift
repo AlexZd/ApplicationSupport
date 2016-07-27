@@ -6,13 +6,13 @@
 //
 //
 
-extension Float: AnyType, DatabaseRepresentable {
-    //MARK: - AnyType
-    public var rawType: String { return "Float" }
+// extension Float: AnyType, DatabaseRepresentable {
+//     //MARK: - AnyType
+//     public var rawType: String { return "Float" }
     
-    //MARK: - DatabaseRepresentable
-    public var dbValue: AnyType { return self }
-}
+//     //MARK: - DatabaseRepresentable
+//     public var dbValue: AnyType { return self }
+// }
 
 extension Float {
     //MARK: - Data

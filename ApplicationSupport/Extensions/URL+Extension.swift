@@ -6,10 +6,10 @@
 //
 //
 
-extension URL: AnyType, DatabaseRepresentable {
-    //MARK: - AnyType
-    public var rawType: String { return "URL" }
+// extension URL: AnyType, DatabaseRepresentable {
+//     //MARK: - AnyType
+//     public var rawType: String { return "URL" }
     
-    //MARK: - DatabaseRepresentable
-    public var dbValue: AnyType { return self.absoluteString }
-}
+//     //MARK: - DatabaseRepresentable
+//     public var dbValue: AnyType { return self.absoluteString }
+// }

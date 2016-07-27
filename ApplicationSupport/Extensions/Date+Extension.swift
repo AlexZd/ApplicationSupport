@@ -6,10 +6,10 @@
 //
 //
 
-extension Date: AnyType, DatabaseRepresentable {
-    //MARK: - AnyType
-    public var rawType: String { return "Date" }
+// extension Date: AnyType, DatabaseRepresentable {
+//     //MARK: - AnyType
+//     public var rawType: String { return "Date" }
     
-    //MARK: - DatabaseRepresentable
-    public var dbValue: AnyType { return "'\(self)'" }
-}
+//     //MARK: - DatabaseRepresentable
+//     public var dbValue: AnyType { return "'\(self)'" }
+// }

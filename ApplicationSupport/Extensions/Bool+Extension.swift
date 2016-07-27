@@ -6,10 +6,10 @@
 //
 //
 
-extension Bool: AnyType, DatabaseRepresentable {
-    //MARK: - AnyType
-    public var rawType: String { return "Bool" }
+// extension Bool: AnyType, DatabaseRepresentable {
+//     //MARK: - AnyType
+//     public var rawType: String { return "Bool" }
     
-    //MARK: - DatabaseRepresentable
-    public var dbValue: AnyType { return Int(self) }
-}
+//     //MARK: - DatabaseRepresentable
+//     public var dbValue: AnyType { return Int(self) }
+// }
