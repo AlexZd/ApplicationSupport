@@ -17,6 +17,6 @@ public extension MetaRecord {
         if let typeRange = className.rangeOfString(".Type") {
             className.replaceRange(typeRange, with: "")
         }
-        return className.lowercaseString
+        return className.componentsSeparatedByString(".").dropFirst().joinWithSeparator(".")
     }
 }
