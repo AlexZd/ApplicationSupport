@@ -6,14 +6,14 @@
 //
 //
 
-public protocol Transformable {
-    static func transformers() -> Dictionary<String,Transformer>
-}
+// public protocol Transformable {
+//     static func transformers() -> Dictionary<String,Transformer>
+// }
 
-extension Transformable {
+// extension Transformable {
     
-    static public func transformers() -> Dictionary<String,Transformer> {
-        return [:]
-    }
+//     static public func transformers() -> Dictionary<String,Transformer> {
+//         return [:]
+//     }
     
-}
+//}
