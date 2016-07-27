@@ -7,5 +7,5 @@
 //
 
 public protocol DatabaseRepresentable {
-    var dbValue: AnyType { get }
+    // var dbValue: AnyType { get }
 }

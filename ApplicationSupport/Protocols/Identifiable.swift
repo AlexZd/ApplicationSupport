@@ -7,5 +7,5 @@
 //
 
 public protocol Identifiable {
-    var identifier : AnyType { get set }
+    // var identifier : AnyType { get set }
 }
