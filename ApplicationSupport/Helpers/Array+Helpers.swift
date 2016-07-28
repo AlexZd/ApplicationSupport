@@ -13,3 +13,14 @@ extension Array {
     }
     
 }
+
+public func <<<T> (inout left: [T], right: [T]) -> [T] {
+    left.appendContentsOf(right)
+    return left
+}
+
+public func <<<T> (inout left: [T], right: T) -> [T] {
+    left.append(right)
+    return left
+}
+
