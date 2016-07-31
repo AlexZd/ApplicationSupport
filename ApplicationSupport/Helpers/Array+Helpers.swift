@@ -24,3 +24,16 @@ public func <<<T> (inout left: [T], right: T) -> [T] {
     return left
 }
 
+public func <<<T> (inout left: [T], right: [T]?) -> [T] {
+    if let items = right {
+        return left << items
+    }
+    return left
+}
+
+public func <<<T> (inout left: [T], right: T?) -> [T] {
+    if let item = right {
+        return left << item
+    }
+    return left
+}

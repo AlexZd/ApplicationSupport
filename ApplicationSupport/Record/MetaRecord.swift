@@ -8,6 +8,14 @@
 
 import Foundation
 
+public protocol Identifiable {
+    var id : Any! { get set }
+}
+
+public protocol Initiable {
+    init()
+}
+
 public protocol MetaRecord {}
 
 public extension MetaRecord {
