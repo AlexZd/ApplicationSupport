@@ -73,7 +73,7 @@ public extension Record {
 }
 
 public extension Record {
-    public init(attributes: RecordObject, action: String) {
+    public init(attributes: RecordObject, action: String = "") {
         self.init()
         self.setAttributes(action, attributes: attributes)
     }
