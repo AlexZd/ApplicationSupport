@@ -8,23 +8,38 @@
 
 import Foundation
 
-public func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) {
-    for (k, v) in right {
-        left.updateValue(v, forKey: k)
+public func += <K, V> (inout left: [K: V], right: [K: V]?) {
+    if let right = right {
+        for (k, v) in right {
+            if let leftDictionary = left[k] as? [K: V], let rightDictionary = right[k] as? [K: V] {
+                left[k] = (leftDictionary + rightDictionary) as? V
+            } else if let leftArray = left[k] as? [V], let rightArray = right[k] as? [V] {
+                left[k] = (leftArray + rightArray) as? V
+            } else {
+                left.updateValue(v, forKey: k)
+            }
+        }
     }
 }
 
-public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>?) -> Dictionary<K,V> {
-    var map = Dictionary<K,V>()
-    for (k, v) in left {
-        map[k] = v
-    }
-    if let dictionary = right {
-        for (k, v) in dictionary {
+public func + <K,V>(left: [K: V]?, right: [K: V]?) -> [K: V] {
+    var map = [K: V]()
+    if let left = left {
+        for (k, v) in left {
             map[k] = v
         }
     }
-    
+    if let right = right {
+        for (k, v) in right {
+            if let leftDictionary = left?[k] as? [K: V], let rightDictionary = right[k] as? [K: V] {
+                map[k] = (leftDictionary + rightDictionary) as? V
+            } else if let leftArray = left?[k] as? [V], let rightArray = right[k] as? [V] {
+                map[k] = (leftArray + rightArray) as? V
+            } else {
+                map.updateValue(v, forKey: k)
+            }
+        }
+    }
     return map
 }
 
