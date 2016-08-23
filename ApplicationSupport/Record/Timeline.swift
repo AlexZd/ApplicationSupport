@@ -41,8 +41,10 @@ public class Timeline {
             for key in keys {
                 let left = last[key] as? DatabaseRepresentable
                 let right = values[key] as? DatabaseRepresentable
-                if !(left == right) {
-                    diff[key] = right
+                if let r = right {
+                    if left?.equals(r) == false {
+                        diff[key] = right
+                    }
                 }
             }
             return diff

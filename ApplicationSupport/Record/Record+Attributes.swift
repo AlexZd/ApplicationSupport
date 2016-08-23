@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import ObjectMapper
 
 extension Record {
  
     public var attributes: RecordObject {
-        get { return getAttributes() }
-        set { self.setAttributes(newValue) }
+        get { return self.toPureJSON() }
+        set { self.mapping(Map(mappingType: .FromJSON, JSONDictionary: newValue, toObject: true, context: nil)) }
     }
     
     public var defaultValues: [String: Any] {

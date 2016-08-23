@@ -28,6 +28,21 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>?) -> Dictionar
     return map
 }
 
+//public func + <K,V>(left: Dictionary<K,AnyObject>, right: Dictionary<K,V>?) -> Dictionary<K,AnyObject> {
+//    var map = Dictionary<K,AnyObject>()
+//    for (k, v) in left {
+//        map[k] = v
+//    }
+//    if let dictionary = right {
+//        for (k, v) in dictionary {
+//            if let value = v as? AnyObject {
+//                map[k] = value
+//            }
+//        }
+//    }
+//    return map
+//}
+
 public func * <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>?) -> Dictionary<K,V> {
     var map = Dictionary<K,V>()
     if let dictionary = right {
@@ -73,4 +88,32 @@ extension Dictionary {
         return self.filter({ keys.contains($0.0) == false }).reduce([:], combine: { $0 + [$1.0 : $1.1] })
     }
     
+}
+
+// Rotate dictionary from [String: Any] to [String: AnyObject]
+public extension Dictionary where Key: StringLiteralConvertible, Value: Any {
+    var pure: [Key: AnyObject] {
+        var pure: [Key: AnyObject] = [:]
+        for (k, v) in self {
+            if let value = v as? AnyObject {
+                pure[k] = value
+            } else if let value = v as? RecordObject {
+                pure[k] = value.pure
+            } else if let value = v as? RecordsArray {
+                pure[k] = value.map({ $0.pure })
+            }
+        }
+        return pure
+    }
+}
+
+// Rotate dictionary from [String: AnyObject] to [String: Any]
+public extension Dictionary where Key: StringLiteralConvertible, Value: AnyObject {
+    var pure: [Key: Any] {
+        var pure: [Key: Any] = [:]
+        for (k, v) in self {
+            pure[k] = v
+        }
+        return pure
+    }
 }
