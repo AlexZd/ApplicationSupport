@@ -12,7 +12,7 @@ import ObjectMapper
 extension Record {
  
     public var attributes: RecordObject {
-        get { return self.toPureJSON() }
+        get { return self.toJSON() }
         set { self.mapping(Map(mappingType: .FromJSON, JSONDictionary: newValue, toObject: true, context: nil)) }
     }
     

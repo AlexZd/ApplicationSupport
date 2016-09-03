@@ -10,7 +10,7 @@ import Foundation
 import ApplicationSupport
 
 public class Timeline {
-    private var versions: [RecordObject] = []
+    public var versions: [RecordObject] = []
     
     public init() {}
     public init(values: RecordObject) {
@@ -19,7 +19,7 @@ public class Timeline {
     
     //MARK: - Management
     
-    public func enqueu(snapshot: RecordObject) {
+    public func enqueue(snapshot: RecordObject) {
         self.versions << snapshot
     }
     
@@ -42,8 +42,24 @@ public class Timeline {
                 let left = last[key] as? DatabaseRepresentable
                 let right = values[key] as? DatabaseRepresentable
                 if let r = right {
-                    if left?.equals(r) == false {
-                        diff[key] = right
+                    diff[key] = right
+                } else if let l = left {
+                    diff[key] = l
+                } else {
+                    let leftArr = last[key] as? [[String: Any]]
+                    let rightArr = values[key] as? [[String: Any]]
+                    if let r = rightArr {
+                        diff[key] = r
+                    } else if let l = leftArr {
+                        diff[key] = l
+                    } else {
+                        let leftArr = last[key] as? [String: Any]
+                        let rightArr = values[key] as? [String: Any]
+                        if let r = rightArr {
+                            diff[key] = r
+                        } else if let l = leftArr {
+                            diff[key] = l
+                        }
                     }
                 }
             }

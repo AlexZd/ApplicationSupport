@@ -32,4 +32,11 @@ public extension Record {
     public init?(_ map: Map) {
         self.init()
     }
+    
+    public init(attributes: RecordObject) {
+        self.init()
+        let map = Map(mappingType: .FromJSON, JSONDictionary: attributes, toObject: true, context: nil)
+        self.mapping(map)
+        self.timeline.enqueue(attributes)
+    }
 }

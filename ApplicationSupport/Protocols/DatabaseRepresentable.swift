@@ -10,6 +10,8 @@
 // Because each database users different fields to represent data in db itself
 // DatabaseRepresetable provides wrapping to give a garantee of safe data types
 
+import ObjectMapper
+
 public protocol RawTypeRepresentable {
     // Returns string represetation of the type
     var rawType: String { get }
@@ -64,4 +66,7 @@ extension Double: DatabaseRepresentable {
 extension Date: DatabaseRepresentable {
     public var rawType: String { return "Date" }
     public var dbValue: Any { return "'\(self)'" }
+}
+extension Array where Element: Mappable {
+    public var dbValue: Any { return self.toJSON() }
 }
