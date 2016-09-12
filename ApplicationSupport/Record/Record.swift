@@ -39,4 +39,10 @@ public extension Record {
         self.mapping(map)
         self.timeline.enqueue(attributes)
     }
+    
+    public mutating func update(attributes: RecordObject) {
+        let map = Map(mappingType: .FromJSON, JSONDictionary: attributes, toObject: true, context: nil)
+        self.mapping(map)
+        self.timeline.enqueue(attributes)
+    }
 }
