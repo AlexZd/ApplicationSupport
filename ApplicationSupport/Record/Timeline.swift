@@ -36,7 +36,7 @@ public class Timeline {
     
     func compare(values: RecordObject) -> RecordObject {
         if let last = self.versions.last {
-            var keys = Array(Set(last.keys).union(Set(values.keys)))
+            let keys = Array(Set(last.keys).union(Set(values.keys)))
             var diff: RecordObject = [:]
             for key in keys {
                 let left = last[key] as? DatabaseRepresentable
