@@ -35,12 +35,12 @@ public extension DatabaseRepresentable {
 public extension DatabaseRepresentable {
     func equals(value: DatabaseRepresentable) -> Bool {
         if value.rawType == self.rawType {
-            if value.dynamicType == String.self { return value as! String == self as! String }
-            if value.dynamicType == Float.self { return value as! Float == self as! Float }
-            if value.dynamicType == Double.self { return value as! Double == self as! Double }
-            if value.dynamicType == Int.self { return value as! Int == self as! Int }
-            if value.dynamicType == Date.self { return value as! Date == self as! Date }
-            if value.dynamicType == Bool.self { return value as! Bool == self as! Bool }
+            if type(of: value) == String.self { return value as! String == self as! String }
+            if type(of: value) == Float.self { return value as! Float == self as! Float }
+            if type(of: value) == Double.self { return value as! Double == self as! Double }
+            if type(of: value) == Int.self { return value as! Int == self as! Int }
+            if type(of: value) == Date.self { return value as! Date == self as! Date }
+            if type(of: value) == Bool.self { return value as! Bool == self as! Bool }
         }
         return false
     }

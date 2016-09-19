@@ -23,24 +23,24 @@ extension Array {
     }
 }
 
-public func <<<T> (inout left: [T], right: [T]) -> [T] {
+public func <<<T> (left: inout [T], right: [T]) -> [T] {
     left.appendContentsOf(right)
     return left
 }
 
-public func <<<T> (inout left: [T], right: T) -> [T] {
+public func <<<T> (left: inout [T], right: T) -> [T] {
     left.append(right)
     return left
 }
 
-public func <<<T> (inout left: [T], right: [T]?) -> [T] {
+public func <<<T> (left: inout [T], right: [T]?) -> [T] {
     if let items = right {
         return left << items
     }
     return left
 }
 
-public func <<<T> (inout left: [T], right: T?) -> [T] {
+public func <<<T> (left: inout [T], right: T?) -> [T] {
     if let item = right {
         return left << item
     }
