@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func += <K, V> (inout left: [K: V], right: [K: V]?) {
+public func += <K, V> (left: inout [K: V], right: [K: V]?) {
     if let right = right {
         for (k, v) in right {
             if let leftDictionary = left[k] as? [K: V], let rightDictionary = right[k] as? [K: V] {
@@ -73,7 +73,7 @@ public func * <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>?) -> Dictionar
 
 extension Dictionary {
     
-    public mutating func merge<K, V>(dict: [K: V]){
+    public mutating func merge<K, V>(_ dict: [K: V]){
         for (k, v) in dict {
             self.updateValue(v as! Value, forKey: k as! Key)
         }
@@ -82,7 +82,7 @@ extension Dictionary {
     public mutating func removeAll(except all: [AnyObject]) {
         for key in Array(self.keys) {
             if all.contains(key) == false {
-                self.removeValueForKey(key)
+                self.removeValue(forKey: key)
             }
         }
     }
@@ -90,32 +90,33 @@ extension Dictionary {
     public mutating func removeAll(only all : [AnyObject]) {
         for key in Array(self.keys) {
             if all.contains(key) {
-                self.removeValueForKey(key)
+                self.removeValue(forKey: key)
             }
         }
     }
     
-    public func slice(keys: [Key]) -> [Key:Value] {
-        return self.filter({ keys.contains($0.0) }).reduce([:], combine: { $0 + [$1.0 : $1.1] })
+    public func slice(_ keys: [Key]) -> [Key:Value] {
+        return self.filter({ keys.contains($0.0) }).reduce([:], { $0 + [$1.0 : $1.1] })
     }
     
-    public func except(keys: [Key]) -> [Key: Value] {
-        return self.filter({ keys.contains($0.0) == false }).reduce([:], combine: { $0 + [$1.0 : $1.1] })
+    public func except(_ keys: [Key]) -> [Key: Value] {
+        return self.filter({ keys.contains($0.0) == false }).reduce([:], { $0 + [$1.0 : $1.1] })
     }
     
 }
 
 // Rotate dictionary from [String: Any] to [String: AnyObject]
-public extension Dictionary where Key: StringLiteralConvertible, Value: Any {
+public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     var pure: [Key: AnyObject] {
         var pure: [Key: AnyObject] = [:]
         for (k, v) in self {
             if let value = v as? AnyObject {
                 pure[k] = value
             } else if let value = v as? RecordObject {
-                pure[k] = value.pure
+                pure[k] = value.pure as AnyObject?
             } else if let value = v as? RecordsArray {
-                pure[k] = value.map({ $0.pure })
+                let ars = value.flatMap({ $0.pure as? AnyObject })
+                pure[k] = ars as AnyObject?
             }
         }
         return pure
@@ -123,7 +124,7 @@ public extension Dictionary where Key: StringLiteralConvertible, Value: Any {
 }
 
 // Rotate dictionary from [String: AnyObject] to [String: Any]
-public extension Dictionary where Key: StringLiteralConvertible, Value: AnyObject {
+public extension Dictionary where Key: ExpressibleByStringLiteral, Value: AnyObject {
     var pure: [Key: Any] {
         var pure: [Key: Any] = [:]
         for (k, v) in self {

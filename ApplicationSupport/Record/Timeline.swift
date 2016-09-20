@@ -9,8 +9,8 @@
 import Foundation
 import ApplicationSupport
 
-public class Timeline {
-    public var versions: [RecordObject] = []
+open class Timeline {
+    open var versions: [RecordObject] = []
     
     public init() {}
     public init(values: RecordObject) {
@@ -19,11 +19,11 @@ public class Timeline {
     
     //MARK: - Management
     
-    public func enqueue(snapshot: RecordObject) {
+    open func enqueue(_ snapshot: RecordObject) {
         self.versions << snapshot
     }
     
-    public func dequeue() -> RecordObject? {
+    open func dequeue() -> RecordObject? {
         if self.versions.count > 1 {
             let last = self.versions.last
             self.versions = Array(self.versions.dropLast())
@@ -34,7 +34,7 @@ public class Timeline {
     
     var isEmpty: Bool { return self.versions.isEmpty }
     
-    func compare(values: RecordObject) -> RecordObject {
+    func compare(_ values: RecordObject) -> RecordObject {
         if let last = self.versions.last {
             let keys = Array(Set(last.keys).union(Set(values.keys)))
             var diff: RecordObject = [:]
@@ -68,7 +68,7 @@ public class Timeline {
         return values
     }
     
-    public func reset(values: RecordObject) {
+    open func reset(_ values: RecordObject) {
         self.versions.removeAll()
         self.versions << values
     }

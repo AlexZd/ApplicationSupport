@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class URL: NSURL, StringLiteralConvertible {
+open class URL: NSURL, ExpressibleByStringLiteral {
     public typealias UnicodeScalarLiteralType = StringLiteralType
     public typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
     
@@ -21,10 +21,10 @@ public class URL: NSURL, StringLiteralConvertible {
     }
     
     public required convenience init(stringLiteral value: StringLiteralType) {
-        self.init(string: value, relativeToURL: nil)!
+        self.init(string: value, relativeTo: nil)!
     }
     
     public convenience init(string: String) {
-        self.init(string: string, relativeToURL: nil)!
+        self.init(string: string, relativeTo: nil)!
     }
 }

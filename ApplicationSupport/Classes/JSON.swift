@@ -68,19 +68,19 @@ let digitMapping: [UnicodeScalar:Int] = [
     "9": 9,
 ]
 
-extension SequenceType where Generator.Element == String {
+extension Sequence where Iterator.Element == String {
     /// Interpose the `separator` between elements of `self`, then concatenate
     /// the result.  For example:
     ///
     ///     ["foo", "bar", "baz"].joinWithSeparator("-|-") // "foo-|-bar-|-baz"
-    @warn_unused_result
-    public func joined(separator: String) -> String {
-        return self.joinWithSeparator(separator)
+    
+    public func joined(_ separator: String) -> String {
+        return self.joined(separator: separator)
     }
 }
 
-public extension Dictionary where Key: StringLiteralConvertible {
-    func json(pretty: Bool = false) -> String {
+public extension Dictionary where Key: ExpressibleByStringLiteral {
+    func json(_ pretty: Bool = false) -> String {
         var jsonDictionary: [String: Json] = [:]
         for (k, v) in self {
             if let value = v as? Bool { jsonDictionary["\(k)"] = Json(value) } else
@@ -120,9 +120,9 @@ func hexToDigit(_ b: UInt8) -> UInt32? {
 
 public enum Json: CustomStringConvertible, CustomDebugStringConvertible, Equatable {
     
-    case NullValue
-    case BooleanValue(Bool)
-    case NumberValue(Double)
+    case nullValue
+    case booleanValue(Bool)
+    case numberValue(Double)
     case StringValue(String)
     case ArrayValue([Json])
     case ObjectValue([String:Json])
@@ -130,11 +130,11 @@ public enum Json: CustomStringConvertible, CustomDebugStringConvertible, Equatab
     // MARK: Initialization
     
     public init(_ value: Bool) {
-        self = .BooleanValue(value)
+        self = .booleanValue(value)
     }
     
     public init(_ value: Double) {
-        self = .NumberValue(value)
+        self = .numberValue(value)
     }
     
     public init(_ value: String) {
@@ -152,11 +152,11 @@ public enum Json: CustomStringConvertible, CustomDebugStringConvertible, Equatab
     // MARK: From
     
     public static func from(_ value: Bool) -> Json {
-        return .BooleanValue(value)
+        return .booleanValue(value)
     }
     
     public static func from(_ value: Double) -> Json {
-        return .NumberValue(value)
+        return .numberValue(value)
     }
     
     public static func from(_ value: String) -> Json {
@@ -190,20 +190,20 @@ extension Json {
 
 extension Json {
     public enum SerializationStyle {
-        case Default
-        case PrettyPrint
+        case `default`
+        case prettyPrint
         
-        private var serializer: JsonSerializer.Type {
+        fileprivate var serializer: JsonSerializer.Type {
             switch self {
-            case .Default:
+            case .default:
                 return DefaultJsonSerializer.self
-            case .PrettyPrint:
+            case .prettyPrint:
                 return PrettyJsonSerializer.self
             }
         }
     }
     
-    public func serialize(_ style: SerializationStyle = .Default) -> String {
+    public func serialize(_ style: SerializationStyle = .default) -> String {
         return style.serializer.init().serialize(self)
     }
 }
@@ -212,14 +212,14 @@ extension Json {
 
 extension Json {
     public var isNull: Bool {
-        guard case .NullValue = self else { return false }
+        guard case .nullValue = self else { return false }
         return true
     }
     
     public var boolValue: Bool? {
-        if case let .BooleanValue(bool) = self {
+        if case let .booleanValue(bool) = self {
             return bool
-        } else if let integer = intValue where integer == 1 || integer == 0 {
+        } else if let integer = intValue , integer == 1 || integer == 0 {
             // When converting from foundation type `[String : AnyObject]`, something that I see as important,
             // it's not possible to distinguish between 'bool', 'double', and 'int'.
             // Because of this, if we have an integer that is 0 or 1, and a user is requesting a boolean val,
@@ -236,7 +236,7 @@ extension Json {
     }
     
     public var doubleValue: Double? {
-        guard case let .NumberValue(double) = self else {
+        guard case let .numberValue(double) = self else {
             return nil
         }
         
@@ -244,7 +244,7 @@ extension Json {
     }
     
     public var intValue: Int? {
-        guard case let .NumberValue(double) = self where double % 1 == 0 else {
+        guard case let .numberValue(double) = self , double.truncatingRemainder(dividingBy: 1) == 0 else {
             return nil
         }
         
@@ -278,7 +278,7 @@ extension Json {
 extension Json {
     public subscript(index: Int) -> Json? {
         assert(index >= 0)
-        guard let array = arrayValue where index < array.count else { return nil }
+        guard let array = arrayValue , index < array.count else { return nil }
         return array[index]
     }
     
@@ -315,15 +315,15 @@ extension Json {
 
 public func ==(lhs: Json, rhs: Json) -> Bool {
     switch lhs {
-    case .NullValue:
+    case .nullValue:
         return rhs.isNull
-    case .BooleanValue(let lhsValue):
+    case .booleanValue(let lhsValue):
         guard let rhsValue = rhs.boolValue else { return false }
         return lhsValue == rhsValue
     case .StringValue(let lhsValue):
         guard let rhsValue = rhs.stringValue else { return false }
         return lhsValue == rhsValue
-    case .NumberValue(let lhsValue):
+    case .numberValue(let lhsValue):
         guard let rhsValue = rhs.doubleValue else { return false }
         return lhsValue == rhsValue
     case .ArrayValue(let lhsValue):
@@ -337,31 +337,31 @@ public func ==(lhs: Json, rhs: Json) -> Bool {
 
 // MARK: Literal Convertibles
 
-extension Json: NilLiteralConvertible {
+extension Json: ExpressibleByNilLiteral {
     public init(nilLiteral value: Void) {
-        self = .NullValue
+        self = .nullValue
     }
 }
 
-extension Json: BooleanLiteralConvertible {
+extension Json: ExpressibleByBooleanLiteral {
     public init(booleanLiteral value: BooleanLiteralType) {
-        self = .BooleanValue(value)
+        self = .booleanValue(value)
     }
 }
 
-extension Json: IntegerLiteralConvertible {
+extension Json: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: IntegerLiteralType) {
-        self = .NumberValue(Double(value))
+        self = .numberValue(Double(value))
     }
 }
 
-extension Json: FloatLiteralConvertible {
+extension Json: ExpressibleByFloatLiteral {
     public init(floatLiteral value: FloatLiteralType) {
-        self = .NumberValue(Double(value))
+        self = .numberValue(Double(value))
     }
 }
 
-extension Json: StringLiteralConvertible {
+extension Json: ExpressibleByStringLiteral {
     public typealias UnicodeScalarLiteralType = String
     public typealias ExtendedGraphemeClusterLiteralType = String
     
@@ -378,13 +378,13 @@ extension Json: StringLiteralConvertible {
     }
 }
 
-extension Json: ArrayLiteralConvertible {
+extension Json: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: Json...) {
         self = .ArrayValue(elements)
     }
 }
 
-extension Json: DictionaryLiteralConvertible {
+extension Json: ExpressibleByDictionaryLiteral {
     public init(dictionaryLiteral elements: (String, Json)...) {
         var object = [String : Json](minimumCapacity: elements.count)
         elements.forEach { key, value in
@@ -405,11 +405,11 @@ internal class DefaultJsonSerializer: JsonSerializer {
     
     internal func serialize(_ json: Json) -> String {
         switch json {
-        case .NullValue:
+        case .nullValue:
             return "null"
-        case .BooleanValue(let b):
+        case .booleanValue(let b):
             return b ? "true" : "false"
-        case .NumberValue(let n):
+        case .numberValue(let n):
             return serializeNumber(n)
         case .StringValue(let s):
             return escapeAsJsonString(s)
@@ -430,20 +430,20 @@ internal class DefaultJsonSerializer: JsonSerializer {
     
     func serializeArray(_ array: [Json]) -> String {
         var string = "["
-        string += array.map { $0.serialize(self) }.joinWithSeparator(",")
+        string += array.map { $0.serialize(self) }.joined(separator: ",")
         return string + "]"
     }
     
     func serializeObject(_ object: [String : Json]) -> String {
         var string = "{"
-        string += object.map { "\(escapeAsJsonString($0)): \($1.serialize(self))" }.joinWithSeparator(",")
+        string += object.map { "\(escapeAsJsonString($0)): \($1.serialize(self))" }.joined(separator: ",")
         return string + "}"
     }
     
 }
 
 internal class PrettyJsonSerializer: DefaultJsonSerializer {
-    private var indentLevel = 0
+    fileprivate var indentLevel = 0
     
     required init() {
         super.init()
@@ -458,7 +458,7 @@ internal class PrettyJsonSerializer: DefaultJsonSerializer {
         let indentString = indent()
         
         var string = "[\n"
-        string += array.map { indentString + $0.serialize(self) }.joinWithSeparator(",\n")
+        string += array.map { indentString + $0.serialize(self) }.joined(separator: ",\n")
         return string + " ]"
     }
     
@@ -471,13 +471,13 @@ internal class PrettyJsonSerializer: DefaultJsonSerializer {
         let indentString = indent()
         
         var string = "{\n"
-        string += object.map({ indentString + "\(escapeAsJsonString($0)): \($1.serialize(self))" }).joinWithSeparator(",\n")
+        string += object.map({ indentString + "\(escapeAsJsonString($0)): \($1.serialize(self))" }).joined(separator: ",\n")
         string += " }"
         
         return string
     }
     
     func indent() -> String {
-        return Array(1...indentLevel).map({ _ in " " }).joinWithSeparator("")
+        return Array(1...indentLevel).map({ _ in " " }).joined(separator: "")
     }
 }

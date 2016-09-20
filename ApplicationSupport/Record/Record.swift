@@ -23,8 +23,8 @@ public extension Record {
     }
     
     public static var resourceName: String {
-        let components = self.modelName.componentsSeparatedByString(".").map({ $0.lowercaseString })
-        return components.dropLast().joinWithSeparator("_") + (components.count > 1 ? "_" + components.last!.lowercaseString.pluralized : components.last!.lowercaseString)
+        let components = self.modelName.components(separatedBy: ".").map({ $0.lowercased() })
+        return components.dropLast().joined(separator: "_") + (components.count > 1 ? "_" + components.last!.lowercased().pluralized : components.last!.lowercased())
     }
 }
 
@@ -35,13 +35,13 @@ public extension Record {
     
     public init(attributes: RecordObject) {
         self.init()
-        let map = Map(mappingType: .FromJSON, JSONDictionary: attributes, toObject: true, context: nil)
+        let map = Map(mappingType: .fromJSON, JSONDictionary: attributes, toObject: true, context: nil)
         self.mapping(map)
         self.timeline.enqueue(attributes)
     }
     
-    public mutating func update(attributes: RecordObject) {
-        let map = Map(mappingType: .FromJSON, JSONDictionary: attributes, toObject: true, context: nil)
+    public mutating func update(_ attributes: RecordObject) {
+        let map = Map(mappingType: .fromJSON, JSONDictionary: attributes, toObject: true, context: nil)
         self.mapping(map)
         self.timeline.enqueue(attributes)
     }

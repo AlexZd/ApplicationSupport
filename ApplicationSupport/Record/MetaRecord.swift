@@ -20,11 +20,11 @@ public protocol MetaRecord {}
 
 public extension MetaRecord {
     public final static var modelName: String {
-        let reflect = _reflect(self)
-        var className = "\(reflect.summary)"
-        if let typeRange = className.rangeOfString(".Type") {
-            className.replaceRange(typeRange, with: "")
+        let reflect = Mirror(reflecting: self)
+        var className = "\(reflect.description)"
+        if let typeRange = className.range(of: ".Type") {
+            className.replaceSubrange(typeRange, with: "")
         }
-        return className.componentsSeparatedByString(".").dropFirst().joinWithSeparator(".")
+        return className.components(separatedBy: ".").dropFirst().joined(separator: ".")
     }
 }

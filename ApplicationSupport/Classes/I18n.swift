@@ -10,15 +10,15 @@ import Foundation
 
 final public class I18n {
     
-    public class func translate(string: String) -> String {
+    public class func translate(_ string: String) -> String {
         return NSLocalizedString(string, comment: "")
     }
     
-    public class func t(string: String) -> String {
+    public class func t(_ string: String) -> String {
         return NSLocalizedString(string, comment: "")
     }
     
-    public class func t(string: String, comment: String) -> String {
+    public class func t(_ string: String, comment: String) -> String {
         return NSLocalizedString(string, comment: "")
     }
     

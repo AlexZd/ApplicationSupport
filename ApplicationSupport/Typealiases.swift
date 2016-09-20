@@ -6,6 +6,6 @@
 //
 //
 
-public typealias Date = NSDate
-public typealias Time = NSDate
-public typealias DateFormatter = NSDateFormatter
+public typealias Date = Foundation.Date
+public typealias Time = Foundation.Date
+public typealias DateFormatter = Foundation.DateFormatter

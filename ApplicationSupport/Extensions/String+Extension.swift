@@ -26,7 +26,7 @@ public extension String {
         return untrimmed
     }
     
-    public func wrap(char: String) -> String {
+    public func wrap(_ char: String) -> String {
         return char + self + char
     }
     
@@ -37,14 +37,14 @@ public extension String {
 
 public extension String {
     var camelString: String {
-        return self.characters.split("_").map({ return String($0).capitalizedString }).joinWithSeparator("").lowercaseFirst
+        return self.characters.split(separator: "_").map({ return String($0).capitalized }).joined(separator: "").lowercaseFirst
     }
     
     var sneakyString: String {
-        let regex = try? NSRegularExpression(pattern: "([a-z])([A-Z])", options: NSRegularExpressionOptions.AllowCommentsAndWhitespace)
-        let value = regex?.stringByReplacingMatchesInString(self, options: .ReportCompletion, range: NSRange(location: 0, length: self.characters.count), withTemplate: "$1_$2")
-        if let result = value where result.isEmpty == false {
-            return result.lowercaseString
+        let regex = try? NSRegularExpression(pattern: "([a-z])([A-Z])", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
+        let value = regex?.stringByReplacingMatches(in: self, options: .reportCompletion, range: NSRange(location: 0, length: self.characters.count), withTemplate: "$1_$2")
+        if let result = value , result.isEmpty == false {
+            return result.lowercased()
         }
         return self
     }
@@ -52,8 +52,8 @@ public extension String {
     var first: String { return String(characters.prefix(1)) }
     var last: String { return String(characters.suffix(1)) }
     
-    var uppercaseFirst: String { return first.uppercaseString + String(characters.dropFirst()) }
-    var lowercaseFirst: String { return first.lowercaseString + String(characters.dropFirst()) }
+    var uppercaseFirst: String { return first.uppercased() + String(characters.dropFirst()) }
+    var lowercaseFirst: String { return first.lowercased() + String(characters.dropFirst()) }
 }
 
 public extension String {

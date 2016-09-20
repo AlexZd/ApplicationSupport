@@ -33,7 +33,7 @@ public extension DatabaseRepresentable {
 }
 
 public extension DatabaseRepresentable {
-    func equals(value: DatabaseRepresentable) -> Bool {
+    func equals(_ value: DatabaseRepresentable) -> Bool {
         if value.rawType == self.rawType {
             if type(of: value) == String.self { return value as! String == self as! String }
             if type(of: value) == Float.self { return value as! Float == self as! Float }
@@ -58,7 +58,7 @@ extension Float: DatabaseRepresentable {
 }
 extension Bool: DatabaseRepresentable {
     public var rawType: String { return "Bool" }
-    public var dbValue: Any { return Int(self) }
+    public var dbValue: Any { return self ? 1 : 0 }
 }
 extension Double: DatabaseRepresentable {
     public var rawType: String { return "Double" }

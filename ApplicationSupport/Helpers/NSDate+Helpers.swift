@@ -8,17 +8,17 @@
 
 import Foundation
 
-public func == (l: NSDate?, r: NSDate?) -> Bool {
+public func == (l: Foundation.Date?, r: Foundation.Date?) -> Bool {
     if let right = r {
-        return l?.compare(right) == .OrderedSame
+        return l?.compare(right) == .orderedSame
     }
     return false
 }
 
-public func < (l: NSDate, r: NSDate) -> Bool {
-    return l.compare(r) == .OrderedAscending
+public func < (l: Foundation.Date, r: Foundation.Date) -> Bool {
+    return l.compare(r) == .orderedAscending
 }
 
-public func > (l: NSDate, r: NSDate) -> Bool {
-    return l.compare(r) == .OrderedDescending
+public func > (l: Foundation.Date, r: Foundation.Date) -> Bool {
+    return l.compare(r) == .orderedDescending
 }

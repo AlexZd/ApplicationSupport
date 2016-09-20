@@ -6,8 +6,8 @@
 //
 //
 
-extension SequenceType {
-    public func find(@noescape predicate: (Self.Generator.Element) throws -> Bool) rethrows -> Self.Generator.Element? {
+extension Sequence {
+    public func find(predicate: (Self.Iterator.Element) throws -> Bool) rethrows -> Self.Iterator.Element? {
         for element in self {
             if try predicate(element) {
                 return element
@@ -18,13 +18,13 @@ extension SequenceType {
 }
 
 extension Array {
-    public func contains<T where T : Equatable>(obj: T) -> Bool {
+    public func contains<T>(_ obj: T) -> Bool where T : Equatable {
         return self.filter({$0 as? T == obj}).count > 0
     }
 }
 
 public func <<<T> (left: inout [T], right: [T]) -> [T] {
-    left.appendContentsOf(right)
+    left.append(contentsOf: right)
     return left
 }
 

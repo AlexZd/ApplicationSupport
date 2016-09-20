@@ -8,9 +8,9 @@
 
 import Foundation
 
-public func ClassFromString(className: String) -> AnyClass {
+public func ClassFromString(_ className: String) -> AnyClass {
     var cls : AnyClass? = NSClassFromString(className)
-    if let appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleExecutable") as? String, cls == nil {
+    if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleExecutable") as? String, cls == nil {
         let name = appName + "." + className
         cls = NSClassFromString(name)
         if cls == nil {
