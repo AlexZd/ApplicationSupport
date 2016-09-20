@@ -6,6 +6,4 @@
 //
 //
 
-public typealias Date = Foundation.Date
-public typealias Time = Foundation.Date
-public typealias DateFormatter = Foundation.DateFormatter
+public typealias Time = Date
