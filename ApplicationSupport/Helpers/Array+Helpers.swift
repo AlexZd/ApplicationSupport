@@ -23,16 +23,19 @@ extension Array {
     }
 }
 
+@discardableResult
 public func <<<T> (left: inout [T], right: [T]) -> [T] {
     left.append(contentsOf: right)
     return left
 }
 
+@discardableResult
 public func <<<T> (left: inout [T], right: T) -> [T] {
     left.append(right)
     return left
 }
 
+@discardableResult
 public func <<<T> (left: inout [T], right: [T]?) -> [T] {
     if let items = right {
         return left << items
@@ -40,6 +43,7 @@ public func <<<T> (left: inout [T], right: [T]?) -> [T] {
     return left
 }
 
+@discardableResult
 public func <<<T> (left: inout [T], right: T?) -> [T] {
     if let item = right {
         return left << item
