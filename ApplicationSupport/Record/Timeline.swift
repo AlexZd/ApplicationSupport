@@ -39,12 +39,42 @@ open class Timeline {
             let keys = Array(Set(last.keys).union(Set(values.keys)))
             var diff: RecordObject = [:]
             for key in keys {
+//                if let _l = last[key], let _r = values[key] {
+//                    let left = _l as? DatabaseRepresentable
+//                    let right = _r as? DatabaseRepresentable
+//                    if let r = right {
+//                        diff[key] = right
+//                        continue
+//                    } else if let l = left {
+//                        diff[key] = l
+//                        continue
+//                    }
+//                    let leftArr = last[key] as? [[String: Any]]
+//                    let rightArr = values[key] as? [[String: Any]]
+//                    if let r = rightArr {
+//                        diff[key] = r
+//                    } else if let l = leftArr {
+//                        diff[key] = l
+//                    } else {
+//                        let leftArr = last[key] as? [String: Any]
+//                        let rightArr = values[key] as? [String: Any]
+//                        if let r = rightArr {
+//                            diff[key] = r
+//                        } else if let l = leftArr {
+//                            diff[key] = l
+//                        }
+//                    }
+//                }
                 let left = last[key] as? DatabaseRepresentable
                 let right = values[key] as? DatabaseRepresentable
                 if let r = right {
                     diff[key] = right
                 } else if let l = left {
-                    diff[key] = l
+                    if let r = values[key] as? [String: Any], let _ = left as? String {
+                        diff[key] = r
+                    } else {
+                        diff[key] = l
+                    }
                 } else {
                     let leftArr = last[key] as? [[String: Any]]
                     let rightArr = values[key] as? [[String: Any]]
