@@ -123,6 +123,18 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     }
 }
 
+public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
+    var flatten: [Key: Any] {
+        var result: [Key: Any] = [:]
+        for (k, v) in self {
+            if v != nil {
+                result[k] = v
+            }
+        }
+        return result
+    }
+}
+
 // Rotate dictionary from [String: AnyObject] to [String: Any]
 public extension Dictionary where Key: ExpressibleByStringLiteral, Value: AnyObject {
     var pure: [Key: Any] {
