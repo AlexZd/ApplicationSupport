@@ -19,12 +19,10 @@ public protocol Initiable {
 public protocol MetaRecord {}
 
 public extension MetaRecord {
+    // Use debugPrint to receive nested classes names.
     public final static var modelName: String {
-        let reflect = Mirror(reflecting: self)
-        var className = "\(reflect.description)"
-        if let typeRange = className.range(of: ".Type") {
-            className.replaceSubrange(typeRange, with: "")
-        }
-        return className.components(separatedBy: ".").dropFirst().joined(separator: ".")
+        var className = ""
+        debugPrint(self, separator: "", terminator: "", to: &className)
+        return className.components(separatedBy: ".").dropFirst().joined(".")
     }
 }

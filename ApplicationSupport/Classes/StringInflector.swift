@@ -21,18 +21,22 @@ open class StringInflector {
         }
         
         let replacement: String
-        let regex: NSRegularExpression?
+        let pattern: String
+        let regex: NSRegularExpression
         
         public init(pattern: String, options: NSRegularExpression.Options, replacement: String) {
-            self.regex = try? NSRegularExpression(pattern: pattern, options: options)
+            self.pattern = pattern
+            self.regex = try! NSRegularExpression(pattern: pattern, options: options)
             self.replacement = replacement
         }
         
         public func evaluate(_ string: inout String) -> Bool {
             let range = NSRange(location: 0, length: string.characters.count)
             let mutableString = NSMutableString(string: string)
-            let result = self.regex?.replaceMatches(in: mutableString, options: NSRegularExpression.MatchingOptions.reportProgress, range: range, withTemplate: self.replacement)
-            string = String(mutableString)
+            let result = self.regex.replaceMatches(in: mutableString, options: [], range: range, withTemplate: self.replacement)
+            if result != 0 {
+                string = String(mutableString)
+            }
             return result != 0
         }
     }
@@ -67,7 +71,7 @@ open class StringInflector {
             return String(irregular.first!)
         }
         var result = String(string)
-        for rule in rules {
+        for rule in rules.reversed() {
             if rule.evaluate(&result!) {
                 return result!
             }

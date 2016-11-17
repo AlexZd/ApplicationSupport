@@ -30,6 +30,11 @@ public extension Record {
         let components = self.modelName.components(separatedBy: ".").map({ $0.lowercased() })
         return components.dropLast().joined(separator: "_") + (components.count > 1 ? "_" + components.last!.lowercased().pluralized : components.last!.lowercased())
     }
+
+    public static var className: String {
+        let component = self.modelName.components(separatedBy: ".").map({ $0.lowercased() }).last
+        return component ?? ""
+    }
 }
 
 public extension Record {

@@ -6,4 +6,6 @@
 //
 //
 
+import Foundation
+
 public typealias Time = Date
