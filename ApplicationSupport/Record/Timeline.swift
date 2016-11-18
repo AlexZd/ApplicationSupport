@@ -73,7 +73,11 @@ open class Timeline {
                     if let r = values[key] as? [String: Any], let _ = left as? String {
                         diff[key] = r
                     } else {
-                        diff[key] = l
+                        if let r = values[key] as? [Any], let _ = left as? String {
+                            diff[key] = r
+                        } else {
+                            diff[key] = l
+                        }
                     }
                 } else {
                     let leftArr = last[key] as? [Any]

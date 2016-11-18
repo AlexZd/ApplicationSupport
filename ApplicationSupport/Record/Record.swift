@@ -15,9 +15,9 @@ public typealias RecordsArray = [RecordObject]
 public protocol Record: MetaRecord, Initiable, Mappable {
     var timeline: Timeline { get set }
     
-    init?(with map: Map)
-    init(with attributes: RecordObject)
-    func update(with attributes: RecordObject)
+//    init?(with map: Map)
+//    init(with attributes: RecordObject)
+    mutating func update(with attributes: RecordObject)
 }
 
 public extension Record {
@@ -38,6 +38,7 @@ public extension Record {
 }
 
 public extension Record {
+    // Returns an instance of Record object
     init?(with map: Map) {
         self.init()
     }
@@ -45,13 +46,13 @@ public extension Record {
     init(with attributes: RecordObject) {
         self.init()
         let map = Map(mappingType: .fromJSON, JSONDictionary: attributes, toObject: true, context: nil)
-//        self.mapping(map)
+        self.mapping(map)
         self.timeline.enqueue(attributes)
     }
     
-    mutating func update(_ attributes: RecordObject) {
+    mutating func update(with attributes: RecordObject) {
         let map = Map(mappingType: .fromJSON, JSONDictionary: attributes, toObject: true, context: nil)
-//        self.mapping(map)
+        self.mapping(map)
         self.timeline.enqueue(attributes)
     }
 }
