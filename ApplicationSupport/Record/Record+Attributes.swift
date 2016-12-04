@@ -7,22 +7,22 @@
 //
 
 import Foundation
-import ObjectMapper
+//import ObjectMapper
 
-extension Record {
- 
-    public var attributes: RecordObject {
-        get { return self.toJSON() }
-        set { self.mapping(Map(mappingType: .FromJSON, JSONDictionary: newValue, toObject: true, context: nil)) }
-    }
-    
-    public var defaultValues: [String: Any] {
-        let attributes = self.attributes
-        return attributes
-        
-    }
-}
-
-extension Record {
-    public var dirty: RecordObject { return self.timeline.compare(self.attributes) }
-}
+//extension Record {
+// 
+//    public var attributes: RecordObject {
+//        get { return self.toJSON() }
+//        set { self.mapping(Map(mappingType: .FromJSON, JSONDictionary: newValue, toObject: true, context: nil)) }
+//    }
+//    
+//    public var defaultValues: [String: Any] {
+//        let attributes = self.attributes
+//        return attributes
+//        
+//    }
+//}
+//
+//extension Record {
+//    public var dirty: RecordObject { return self.timeline.compare(self.attributes) }
+//}

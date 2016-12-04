@@ -112,10 +112,10 @@ public extension Dictionary where Key: StringLiteralConvertible, Value: Any {
         for (k, v) in self {
             if let value = v as? AnyObject {
                 pure[k] = value
-            } else if let value = v as? RecordObject {
-                pure[k] = value.pure
-            } else if let value = v as? RecordsArray {
-                pure[k] = value.map({ $0.pure })
+//            } else if let value = v as? RecordObject {
+//                pure[k] = value.pure
+//            } else if let value = v as? RecordsArray {
+//                pure[k] = value.map({ $0.pure })
             }
         }
         return pure
