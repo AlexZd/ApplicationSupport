@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.requires_arc 	= true
   s.source_files 	= 'ApplicationSupport/**/*'
 
-  s.dependency 'ObjectMapper', '~> 1.3'
+  s.dependency 'ObjectMapper'
   s.dependency 'SwiftyBeaver'
 end
