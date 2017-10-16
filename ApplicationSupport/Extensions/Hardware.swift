@@ -16,6 +16,7 @@ public let IS_IPHONE_4 : Bool = (IS_IPHONE && UIScreen.main.bounds.size.height =
 public let IS_IPHONE_5 : Bool = (IS_IPHONE && UIScreen.main.bounds.size.height == 568.0)
 public let IS_IPHONE_6 : Bool = (IS_IPHONE && UIScreen.main.bounds.size.height == 667.0)
 public let IS_IPHONE_6_PLUS : Bool = (IS_IPHONE && UIScreen.main.bounds.size.height == 736.0)
+public let IS_IPHONE_X : Bool = (IS_IPHONE && UIScreen.main.bounds.size.height == 812.0)
 
 public let IS_IPOD : Bool = UIDevice.current.model.range(of: "iPod") != nil
 
