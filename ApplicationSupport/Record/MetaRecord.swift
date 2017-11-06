@@ -16,13 +16,22 @@ public protocol Initiable {
     init()
 }
 
-public protocol MetaRecord {}
+public protocol MetaRecord {
+    static var modelName: String { get }
+    static var modelsName: String { get }
+}
 
 public extension MetaRecord {
     // Use debugPrint to receive nested classes names.
-    public final static var modelName: String {
+    public static var modelName: String {
         var className = ""
         debugPrint(self, separator: "", terminator: "", to: &className)
-        return className.components(separatedBy: ".").dropFirst().joined(".")
+        return className.components(separatedBy: ".").dropFirst().joined(".").lowercased()
+    }
+    
+    public static var modelsName: String {
+        var className = ""
+        debugPrint(self, separator: "", terminator: "", to: &className)
+        return className.components(separatedBy: ".").dropFirst().joined(".").lowercased().pluralized
     }
 }
