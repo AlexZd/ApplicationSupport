@@ -41,6 +41,7 @@ public extension Record {
     // Returns an instance of Record object
     init?(with map: Map) {
         self.init()
+        self.mapping(map)
     }
     
     init(with attributes: RecordObject) {
