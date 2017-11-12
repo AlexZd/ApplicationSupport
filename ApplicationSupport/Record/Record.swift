@@ -20,22 +20,22 @@ public protocol Record: MetaRecord, Initiable, Mappable {
     mutating func update(with attributes: RecordObject)
 }
 
-public extension Record {
-    // Returns in User.Session returns user/sessions
-    public static var resourcesName: String {
-        return self.resourceName.pluralized
-    }
-    
-    public static var resourceName: String {
-        let components = self.modelName.components(separatedBy: ".").map({ $0.lowercased() })
-        return components.dropLast().joined(separator: "_") + (components.count > 1 ? "_" + components.last!.lowercased().pluralized : components.last!.lowercased())
-    }
-
-    public static var className: String {
-        let component = self.modelName.components(separatedBy: ".").map({ $0.lowercased() }).last
-        return component ?? ""
-    }
-}
+//public extension Record {
+//    // Returns in User.Session returns user/sessions
+//    public static var resourcesName: String {
+//        return self.resourceName.pluralized
+//    }
+//
+//    public static var resourceName: String {
+//        let components = self.modelName.components(separatedBy: ".").map({ $0.lowercased() })
+//        return components.dropLast().joined(separator: "_") + (components.count > 1 ? "_" + components.last!.lowercased().pluralized : components.last!.lowercased())
+//    }
+//
+//    public static var className: String {
+//        let component = self.modelName.components(separatedBy: ".").map({ $0.lowercased() }).last
+//        return component ?? ""
+//    }
+//}
 
 public extension Record {
     // Returns an instance of Record object
