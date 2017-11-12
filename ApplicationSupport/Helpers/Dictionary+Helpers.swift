@@ -123,6 +123,19 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     }
 }
 
+func unwrap(_ any:Any) -> Any {
+    
+    let mi = Mirror(reflecting: any)
+    if mi.displayStyle != .optional {
+        return any
+    }
+    
+    if mi.children.count == 0 { return any }
+    let (_, some) = mi.children.first!
+    return some
+    
+}
+
 public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     var flatten: [Key: Any] {
         var result: [Key: Any] = [:]
@@ -133,6 +146,22 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         }
         return result
     }
+    
+//    public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
+        var flatnullen: [Key: Any] {
+            var result: [Key: Any] = [:]
+            for (k, v) in self {
+                let nonWrapped: Any? = v
+                if let value = nonWrapped {
+                    result[k] = unwrap(value)
+                } else {
+                    result[k] = NSNull()
+                }
+            }
+            return result
+        }
+//    }
+
 }
 
 // Rotate dictionary from [String: AnyObject] to [String: Any]
