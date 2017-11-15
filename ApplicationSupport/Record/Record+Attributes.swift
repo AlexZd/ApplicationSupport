@@ -13,7 +13,8 @@ extension Record {
  
     public var attributes: RecordObject {
         get { return self.toJSON() }
-        set { self.mapping(Map(mappingType: .fromJSON, JSONDictionary: newValue, toObject: true, context: nil)) }
+        set { self.mapping(map: Map(mappingType: .fromJSON, JSON: newValue, toObject: true, context: nil)) }
+//        set { self.mapping(Map(mappingType: .fromJSON, JSONDictionary: newValue, toObject: true, context: nil)) }
     }
     
     public var defaultValues: [String: Any] {

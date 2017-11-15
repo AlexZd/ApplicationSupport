@@ -39,21 +39,20 @@ public protocol Record: MetaRecord, Initiable, Mappable {
 
 public extension Record {
     // Returns an instance of Record object
-    init?(with map: Map) {
+    public init?(map: Map) {
         self.init()
-        self.mapping(map)
     }
     
     init(with attributes: RecordObject) {
         self.init()
-        let map = Map(mappingType: .fromJSON, JSONDictionary: attributes, toObject: true, context: nil)
-        self.mapping(map)
+        let map = Map(mappingType: .fromJSON, JSON: attributes, toObject: true, context: nil)
+        self.mapping(map: map)
         self.timeline.enqueue(attributes)
     }
     
     mutating func update(with attributes: RecordObject) {
-        let map = Map(mappingType: .fromJSON, JSONDictionary: attributes, toObject: true, context: nil)
-        self.mapping(map)
+        let map = Map(mappingType: .fromJSON, JSON: attributes, toObject: true, context: nil)
+        self.mapping(map: map)
         self.timeline.enqueue(attributes)
     }
 }
