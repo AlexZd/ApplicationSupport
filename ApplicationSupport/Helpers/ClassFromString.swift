@@ -9,7 +9,7 @@
 import Foundation
 
 public func ClassFromString(_ className: String) -> AnyClass {
-    var cls : AnyClass? = NSClassFromString(className)
+    var cls: AnyClass? = NSClassFromString(className)
     if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleExecutable") as? String, cls == nil {
         let name = appName + "." + className
         cls = NSClassFromString(name)

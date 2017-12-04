@@ -72,11 +72,11 @@ open class StringInflector {
         }
         var result = String(string)
         for rule in rules.reversed() {
-            if rule.evaluate(&result!) {
-                return result!
+            if rule.evaluate(&result) {
+                return result
             }
         }
-        return result!
+        return result
     }
     
     //MARK: - Rules

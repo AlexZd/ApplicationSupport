@@ -9,7 +9,6 @@
 import Foundation
 
 final public class I18n {
-    
     public class func translate(_ string: String) -> String {
         return NSLocalizedString(string, comment: "")
     }
@@ -21,5 +20,4 @@ final public class I18n {
     public class func t(_ string: String, comment: String) -> String {
         return NSLocalizedString(string, comment: "")
     }
-    
 }

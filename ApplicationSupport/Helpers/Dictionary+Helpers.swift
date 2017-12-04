@@ -43,21 +43,6 @@ public func + <K,V>(left: [K: V]?, right: [K: V]?) -> [K: V] {
     return map
 }
 
-//public func + <K,V>(left: Dictionary<K,AnyObject>, right: Dictionary<K,V>?) -> Dictionary<K,AnyObject> {
-//    var map = Dictionary<K,AnyObject>()
-//    for (k, v) in left {
-//        map[k] = v
-//    }
-//    if let dictionary = right {
-//        for (k, v) in dictionary {
-//            if let value = v as? AnyObject {
-//                map[k] = value
-//            }
-//        }
-//    }
-//    return map
-//}
-
 public func * <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>?) -> Dictionary<K,V> {
     var map = Dictionary<K,V>()
     if let dictionary = right {
@@ -124,7 +109,6 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
 }
 
 func unwrap(_ any:Any) -> Any {
-    
     let mi = Mirror(reflecting: any)
     if mi.displayStyle != .optional {
         return any
@@ -133,7 +117,6 @@ func unwrap(_ any:Any) -> Any {
     if mi.children.count == 0 { return any }
     let (_, some) = mi.children.first!
     return some
-    
 }
 
 public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
@@ -147,21 +130,18 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         return result
     }
     
-//    public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
-        var flatnullen: [Key: Any] {
-            var result: [Key: Any] = [:]
-            for (k, v) in self {
-                let nonWrapped: Any? = v
-                if let value = nonWrapped {
-                    result[k] = unwrap(value)
-                } else {
-                    result[k] = NSNull()
-                }
+    var flatnullen: [Key: Any] {
+        var result: [Key: Any] = [:]
+        for (k, v) in self {
+            let nonWrapped: Any? = v
+            if let value = nonWrapped {
+                result[k] = unwrap(value)
+            } else {
+                result[k] = NSNull()
             }
-            return result
         }
-//    }
-
+        return result
+    }
 }
 
 // Rotate dictionary from [String: AnyObject] to [String: Any]
